@@ -22,11 +22,11 @@ def gap_discover(port=@port)
   EM.run do
     serial = EventMachine.open_serial(port, 115200, 8, nil, 1)
     serial.on_data do |data|
-      puts data.chars.map{|b| sprintf("%02X", b.ord) }.join(" ")
+      yield data.chars.map{|b| sprintf("%02X", b.ord) }.join(" ")
     end
   end
 end
 
 
 @port = "/dev/cu.usbmodem1"
-gap_discover(@port)
+gap_discover(@port) {|bytes| puts bytes}
