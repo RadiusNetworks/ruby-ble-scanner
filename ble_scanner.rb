@@ -29,4 +29,6 @@ end
 
 
 @port = "/dev/cu.usbmodem1"
-gap_discover(@port) {|bytes| puts bytes}
+x = 0
+time = Time.now
+gap_discover(@port) {|bytes| puts "#{x+=1},  #{((Time.now - time)*1000).to_i},  #{bytes}"}

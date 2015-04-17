@@ -1,0 +1,517 @@
+0	0x0000	Ericsson Technology Licensing
+1	0x0001	Nokia Mobile Phones
+2	0x0002	Intel Corp.
+3	0x0003	IBM Corp.
+4	0x0004	Toshiba Corp.
+5	0x0005	3Com
+6	0x0006	Microsoft
+7	0x0007	Lucent
+8	0x0008	Motorola
+9	0x0009	Infineon Technologies AG
+10	0x000A	Cambridge Silicon Radio
+11	0x000B	Silicon Wave
+12	0x000C	Digianswer A/S
+13	0x000D	Texas Instruments Inc.
+14	0x000E	Ceva, Inc. (formerly Parthus Technologies, Inc.)
+15	0x000F	Broadcom Corporation
+16	0x0010	Mitel Semiconductor
+17	0x0011	Widcomm, Inc
+18	0x0012	Zeevo, Inc.
+19	0x0013	Atmel Corporation
+20	0x0014	Mitsubishi Electric Corporation
+21	0x0015	RTX Telecom A/S
+22	0x0016	KC Technology Inc.
+23	0x0017	NewLogic
+24	0x0018	Transilica, Inc.
+25	0x0019	Rohde & Schwarz GmbH & Co. KG
+26	0x001A	TTPCom Limited
+27	0x001B	Signia Technologies, Inc.
+28	0x001C	Conexant Systems Inc.
+29	0x001D	Qualcomm
+30	0x001E	Inventel
+31	0x001F	AVM Berlin
+32	0x0020	BandSpeed, Inc.
+33	0x0021	Mansella Ltd
+34	0x0022	NEC Corporation
+35	0x0023	WavePlus Technology Co., Ltd.
+36	0x0024	Alcatel
+37	0x0025	NXP Semiconductors (formerly Philips Semiconductors)
+38	0x0026	C Technologies
+39	0x0027	Open Interface
+40	0x0028	R F Micro Devices
+41	0x0029	Hitachi Ltd
+42	0x002A	Symbol Technologies, Inc.
+43	0x002B	Tenovis
+44	0x002C	Macronix International Co. Ltd.
+45	0x002D	GCT Semiconductor
+46	0x002E	Norwood Systems
+47	0x002F	MewTel Technology Inc.
+48	0x0030	ST Microelectronics
+49	0x0031	Synopsis
+50	0x0032	Red-M (Communications) Ltd
+51	0x0033	Commil Ltd
+52	0x0034	Computer Access Technology Corporation (CATC)
+53	0x0035	Eclipse (HQ Espana) S.L.
+54	0x0036	Renesas Electronics Corporation
+55	0x0037	Mobilian Corporation
+56	0x0038	Terax
+57	0x0039	Integrated System Solution Corp.
+58	0x003A	Matsushita Electric Industrial Co., Ltd.
+59	0x003B	Gennum Corporation
+60	0x003C	BlackBerry Limited (formerly Research In Motion)
+61	0x003D	IPextreme, Inc.
+62	0x003E	Systems and Chips, Inc.
+63	0x003F	Bluetooth SIG, Inc.
+64	0x0040	Seiko Epson Corporation
+65	0x0041	Integrated Silicon Solution Taiwan, Inc.
+66	0x0042	CONWISE Technology Corporation Ltd
+67	0x0043	PARROT SA
+68	0x0044	Socket Mobile
+69	0x0045	Atheros Communications, Inc.
+70	0x0046	MediaTek, Inc.
+71	0x0047	Bluegiga
+72	0x0048	Marvell Technology Group Ltd.
+73	0x0049	3DSP Corporation
+74	0x004A	Accel Semiconductor Ltd.
+75	0x004B	Continental Automotive Systems
+76	0x004C	Apple, Inc.
+77	0x004D	Staccato Communications, Inc.
+78	0x004E	Avago Technologies
+79	0x004F	APT Licensing Ltd.
+80	0x0050	SiRF Technology
+81	0x0051	Tzero Technologies, Inc.
+82	0x0052	J&M Corporation
+83	0x0053	Free2move AB
+84	0x0054	3DiJoy Corporation
+85	0x0055	Plantronics, Inc.
+86	0x0056	Sony Ericsson Mobile Communications
+87	0x0057	Harman International Industries, Inc.
+88	0x0058	Vizio, Inc.
+89	0x0059	Nordic Semiconductor ASA
+90	0x005A	EM Microelectronic-Marin SA
+91	0x005B	Ralink Technology Corporation
+92	0x005C	Belkin International, Inc.
+93	0x005D	Realtek Semiconductor Corporation
+94	0x005E	Stonestreet One, LLC
+95	0x005F	Wicentric, Inc.
+96	0x0060	RivieraWaves S.A.S
+97	0x0061	RDA Microelectronics
+98	0x0062	Gibson Guitars
+99	0x0063	MiCommand Inc.
+100	0x0064	Band XI International, LLC
+101	0x0065	Hewlett-Packard Company
+102	0x0066	9Solutions Oy
+103	0x0067	GN Netcom A/S
+104	0x0068	General Motors
+105	0x0069	A&D Engineering, Inc.
+106	0x006A	MindTree Ltd.
+107	0x006B	Polar Electro OY
+108	0x006C	Beautiful Enterprise Co., Ltd.
+109	0x006D	BriarTek, Inc.
+110	0x006E	Summit Data Communications, Inc.
+111	0x006F	Sound ID
+112	0x0070	Monster, LLC
+113	0x0071	connectBlue AB
+114	0x0072	ShangHai Super Smart Electronics Co. Ltd.
+115	0x0073	Group Sense Ltd.
+116	0x0074	Zomm, LLC
+117	0x0075	Samsung Electronics Co. Ltd.
+118	0x0076	Creative Technology Ltd.
+119	0x0077	Laird Technologies
+120	0x0078	Nike, Inc.
+121	0x0079	lesswire AG
+122	0x007A	MStar Semiconductor, Inc.
+123	0x007B	Hanlynn Technologies
+124	0x007C	A & R Cambridge
+125	0x007D	Seers Technology Co. Ltd
+126	0x007E	Sports Tracking Technologies Ltd.
+127	0x007F	Autonet Mobile
+128	0x0080	DeLorme Publishing Company, Inc.
+129	0x0081	WuXi Vimicro
+130	0x0082	Sennheiser Communications A/S
+131	0x0083	TimeKeeping Systems, Inc.
+132	0x0084	Ludus Helsinki Ltd.
+133	0x0085	BlueRadios, Inc.
+134	0x0086	equinox AG
+135	0x0087	Garmin International, Inc.
+136	0x0088	Ecotest
+137	0x0089	GN ReSound A/S
+138	0x008A	Jawbone
+139	0x008B	Topcorn Positioning Systems, LLC
+140	0x008C	Gimbal Inc. (formerly Qualcomm Labs, Inc. and Qualcomm Retail Solutions, Inc.)​​
+141	0x008D	Zscan Software
+142	0x008E	Quintic Corp.
+143	0x008F	Stollman E+V GmbH
+144	0x0090	Funai Electric Co., Ltd.
+145	0x0091	Advanced PANMOBIL Systems GmbH & Co. KG
+146	0x0092	ThinkOptics, Inc.
+147	0x0093	Universal Electronics, Inc.
+148	0x0094	Airoha Technology Corp.
+149	0x0095	NEC Lighting, Ltd.
+150	0x0096	ODM Technology, Inc.
+151	0x0097	ConnecteDevice Ltd.
+152	0x0098	zer01.tv GmbH
+153	0x0099	i.Tech Dynamic Global Distribution Ltd.
+154	0x009A	Alpwise
+155	0x009B	Jiangsu Toppower Automotive Electronics Co., Ltd.
+156	0x009C	Colorfy, Inc.
+157	0x009D	Geoforce Inc.
+158	0x009E	Bose Corporation
+159	0x009F	Suunto Oy
+160	0x00A0	Kensington Computer Products Group
+161	0x00A1	SR-Medizinelektronik
+162	0x00A2	Vertu Corporation Limited
+163	0x00A3	Meta Watch Ltd.
+164	0x00A4	LINAK A/S
+165	0x00A5	OTL Dynamics LLC
+166	0x00A6	Panda Ocean Inc.
+167	0x00A7	Visteon Corporation
+168	0x00A8	ARP Devices Limited
+169	0x00A9	Magneti Marelli S.p.A
+170	0x00AA	CAEN RFID srl
+171	0x00AB	Ingenieur-Systemgruppe Zahn GmbH
+172	0x00AC	Green Throttle Games
+173	0x00AD	Peter Systemtechnik GmbH
+174	0x00AE	Omegawave Oy
+175	0x00AF	Cinetix
+176	0x00B0	Passif Semiconductor Corp
+177	0x00B1	Saris Cycling Group, Inc
+178	0x00B2	​Bekey A/S
+179	​0x00B3	​Clarinox Technologies Pty. Ltd.
+180	​​0x00B4	​BDE Technology Co., Ltd.
+181	​​0x00B5	Swirl Networks
+182	​​0x00B6	​Meso international
+183	​​0x00B7	​TreLab Ltd
+184	​​0x00B8	​Qualcomm Innovation Center, Inc. (QuIC)
+185	​​0x00B9	​​Johnson Controls, Inc.
+186	0x00BA	​Starkey Laboratories Inc.
+187	​​0x00BB	​​S-Power Electronics Limited
+188	​​0x00BC	​​Ace Sensor Inc
+189	​​0x00BD	​​Aplix Corporation
+190	​​0x00BE	​​AAMP of America
+191	​​0x00BF	​​Stalmart Technology Limited
+192	​​0x00C0	​​AMICCOM Electronics Corporation
+193	​​0x00C1	​​Shenzhen Excelsecu Data Technology Co.,Ltd
+194	​​0x00C2	​​Geneq Inc.
+195	​​0x00C3	​​adidas AG
+196	​​0x00C4	​​LG Electronics​
+​197	​0x00C5	​Onset Computer Corporation
+​198	​0x00C6	​Selfly BV
+​199	​0x00C7	​Quuppa Oy.
+​200	​0x00C8	GeLo Inc
+​201	​0x00C9	Evluma
+​202	​0x00​CA	MC10
+​203	​0x00​CB	Binauric SE
+​204	​0x00​CC	Beats Electronics
+​205	​0x00​CD	Microchip Technology Inc.
+​206	​0x00​CE	Elgato Systems GmbH
+​207	​0x00​CF	ARCHOS SA
+​208	​0x00​D0	Dexcom, Inc.
+​209	​0x00​D1	Polar Electro Europe B.V.
+​210	​0x00​D2	Dialog Semiconductor B.V.
+​211	​0x00​D3	Taixingbang Technology (HK) Co,. LTD.
+​212	​0x00​D4	Kawantech
+​213	​0x00​D5	Austco Communication Systems
+​214	​0x00​D6	Timex Group USA, Inc.
+​215	​0x00​D7	Qualcomm Technologies, Inc.
+​216	​0x00​D8	Qualcomm Connected Experiences, Inc.
+​217	​0x00​D9	Voyetra Turtle Beach
+​218	​0x00​DA	txtr GmbH
+​219	​0x00​DB	Biosentronics
+​220	​0x00​DC	Procter & Gamble
+​221	​0x00​DD	Hosiden Corporation
+​222	​0x00​DE	Muzik LLC
+​223	​0x00​DF	Misfit Wearables Corp
+​224	​0x00​E0	Google
+​225	​0x00​E1	Danlers Ltd
+​226	​0x00​E2	Semilink Inc
+​227	​0x00​E3	inMusic Brands, Inc
+​228	​0x00​E4	L.S. Research Inc.
+​229	​0x00​E5	Eden Software Consultants Ltd.
+​230	​0x00​E6	Freshtemp
+​231	​0x00E7	​KS Technologies
+​232	​0x00E8	​ACTS Technologies
+​233	​0x00E9	​Vtrack Systems
+​234	​0x00EA	​Nielsen-Kellerman Company
+​235	​0x00EB	​Server Technology, Inc.
+​236	​0x00EC	​BioResearch Associates
+​237	​0x00ED	​Jolly Logic, LLC
+​238	​0x00EE	​Above Average Outcomes, Inc.
+​239	​0x00EF	​Bitsplitters GmbH
+​240	​0x00F0	​PayPal, Inc.
+​241	​0x00F1	​Witron Technology Limited
+​242	​0x00F2	​Aether Things Inc. (formerly Morse Project Inc.)
+​243	​0x00F3	​Kent Displays Inc.
+​244	​0x00F4	Nautilus Inc​.
+​245	​0x00F5	​Smartifier Oy
+​246	​0x00F6	​Elcometer Limited
+​247	​0x00F7	​VSN Technologies Inc.
+​248	​0x00F8	​AceUni Corp., Ltd.
+​249	​0x00F9	​StickNFind
+​250	​0x00FA	​Crystal Code AB
+​251	​0x00FB	​KOUKAAM a.s.
+​252	​0x00FC	Delphi Corporation
+​253	​0x00FD	​ValenceTech Limited
+​254	​0x00FE	Reserved
+​255	​0x00FF	​Typo Products, LLC
+​256	​0x0100	​TomTom International BV
+​257	​0x0101	​Fugoo, Inc
+​258	​0x0102	​Keiser Corporation
+​259	​0x0103	​Bang & Olufsen A/S
+​260	​0x0104	​PLUS Locations Systems Pty Ltd
+​261	​0x0105	​Ubiquitous Computing Technology Corporation
+​262	​0x0106	​Innovative Yachtter Solutions
+​263	​0x0107	​William Demant Holding A/S
+​264	​0x0108	​Chicony Electronics Co., Ltd.
+​265	​0x0109	​Atus BV
+​266	​0x010A	​Codegate Ltd.
+​267	​0x010B	ERi, Inc.
+​268	​0x010C	​Transducers Direct, LLC
+​269	​0x010D	​Fujitsu Ten Limited
+​270	​0x010E	​Audi AG
+​271	​0x010F	​HiSilicon Technologies Co., Ltd.
+​272	​0x0110	​Nippon Seiki Co., Ltd.
+​273	​0x0111	​Steelseries ApS
+​274	​0x0112	​vyzybl Inc.
+​275	​0x0113	​Openbrain Technologies, Co., Ltd.
+​276	​0x0114	​Xensr
+​277	​0x0115	e.solutions
+​278	​0x0116	​1OAK Technologies
+​279	​0x0117	​Wimoto Technologies Inc
+​280	​0x0118	​Radius Networks, Inc.
+​281	​0x0119	​Wize Technology Co., Ltd.
+​282	​0x011A	​Qualcomm Labs, Inc.
+​283	​0x011B	​Aruba Networks
+​284	​0x011C	​Baidu
+​285	​0x011D	​Arendi AG
+​286	​0x011E	​Skoda Auto a.s.
+​287	​0x011F	​Volkswagon AG
+​288	​0x0120	​Porsche AG
+​289	​0x0121	​Sino Wealth Electronic Ltd.
+​290	​0x0122	​AirTurn, Inc.
+​291	​0x0123	​Kinsa, Inc.
+​292	​0x0124	​HID Global
+​293	​0x0125	​SEAT es
+​294	​0x0126	​Promethean Ltd.
+​295	​0x0127	​Salutica Allied Solutions
+​296	​0x0128	​GPSI Group Pty Ltd
+​297	​0x0129	​Nimble Devices Oy
+​298	​0x012A	​Changzhou Yongse Infotech Co., Ltd
+299​	​0x012B	​SportIQ
+​300	​0x012C	​TEMEC Instruments B.V.
+​301	​0x012D	​Sony Corporation
+​302	​0x012E	​ASSA ABLOY
+​303	​0x012F	​Clarion Co., Ltd.
+​304	​0x0130	​Warehouse Innovations
+​305	​0x0131	​Cypress Semiconductor Corporation
+​306	0x0132	​MADS Inc
+​307	​0x0133	​Blue Maestro Limited
+​308	​0x0134	​Resolution Products, Inc.
+309​	​0x0135	​Airewear LLC
+​310	​0x0136	Seed Labs, Inc. (formerly ETC sp. z.o.o.)​
+​311	​0x0137	​Prestigio Plaza Ltd.
+​312	​0x0138	​NTEO Inc.
+​313	​0x0139	​Focus Systems Corporation
+​314	​0x013A	​Tencent Holdings Limited
+​315	​0x013B	​Allegion
+​316	​0x013C	​Murata Manufacuring Co., Ltd.
+​​318	​0x013E	​Nod, Inc.
+​​319	​​0x013F	​B&B Manufacturing Company
+​320	​0x0140	​Alpine Electronics (China) Co., Ltd
+​321	​0x0141	​FedEx Services
+​322	​0x0142	​Grape Systems Inc.
+​323	​0x0143	​Bkon Connect
+​324	​0x0144	​Lintech GmbH
+​325	​0x0145	​Novatel Wireless
+​326	​0x0146	​Ciright
+​327	​0x0147	​Mighty Cast, Inc.
+​328	​0x0148	​Ambimat Electronics
+​329	​0x0149	​Perytons Ltd.
+​330	​0x014A	​Tivoli Audio, LLC
+​331	​0x014B	​Master Lock
+​332	​0x014C	​Mesh-Net Ltd
+​333	​0x014D	​Huizhou Desay SV Automotive CO., LTD.
+​334	​0x014E	Tangerine, Inc.
+​335	​0x014F	B&W Group Ltd.
+​336	​0x0150	​Pioneer Corporation
+​337	​0x0151	​OnBeep
+​338	​0x0152	​Vernier Software & Technology
+​339	​0x0153	​ROL Ergo
+​340	​0x0154	​Pebble Technology
+​341	​0x0155	​NETATMO
+​342	​0x0156	​Accumulate AB
+​343	​0x0157	​Anhui Huami Information Technology Co., Ltd.
+​344	​0x0158	​Inmite s.r.o.
+​345	​0x0159	​ChefSteps, Inc.
+​346	​0x015A	​micas AG
+​347	​0x015B	​Biomedical Research Ltd.
+​348	​0x015C	Pitius Tec S.L.
+​349	​0x015D	Estimote, Inc.
+​350	​0x015E	Unikey Technologies, Inc.
+​351	​0x015F	Timer Cap Co.
+​352	​0x0160	AwoX
+​353	​0x0161	yikes
+​354	​0x0162	MADSGlobal NZ Ltd.
+​355	​0x0163	PCH International
+​356	​0x0164	Qingdao Yeelink Information Technology Co., Ltd.
+​357	​0x0165	Milwaukee Tool (formerly Milwaukee Electric Tools)
+​358	​0x0166	MISHIK Pte Ltd
+​359	​0x0167	Bayer HealthCare
+​360	​0x0168	Spicebox LLC
+​361	​0x0169	emberlight
+​362	​0x016A	Cooper-Atkins Corporation
+​363	​0x016B	Qblinks
+​364	​0x016C	MYSPHERA
+​365	​0x016D	LifeScan Inc
+​366	​0x016E	Volantic AB
+​367	​0x016F	Podo Labs, Inc
+​368	​0x0170	Roche Diabetes Care AG
+​369	​0x0171	Amazon Fulfillment Service
+​370	​0x0172	Connovate Technology Private Limited
+​371	​0x0173	Kocomojo, LLC
+​372	​0x0174	Everykey LLC
+​373	​0x0175	Dynamic Controls
+​374	​0x0176	SentriLock
+​375	​0x0177	I-SYST inc.
+​376	​0x0178	CASIO COMPUTER CO., LTD.
+​377	​0x0179	LAPIS Semiconductor Co., Ltd.
+​378	​0x017A	Telemonitor, Inc.
+​379	​0x017B	taskit GmbH
+​380	​0x017C	Daimler AG
+​381	​0x017D	BatAndCat
+​382	​0x017E	BluDotz Ltd
+​383	​0x017F	XTel ApS
+​384	​0x0180	Gigaset Communications GmbH
+​385	​0x0181	Gecko Health Innovations, Inc.
+​386	​0x0182	HOP Ubiquitous
+​387	​0x0183	To Be Assigned
+​388	​0x0184	Nectar
+​389	​0x0185	bel apps LLC
+​390	​0x0186	CORE Lighting Ltd
+​391	​0x0187	Seraphim Sense Ltd
+​392	​0x0188	Unico RBC
+​393	​0x0189	Physical Enterprises Inc.
+​394	​0x018A	Able Trend Technology Limited
+​395	​0x018B	Konica Minolta, Inc.
+​396	​0x018C	Wilo SE
+​397	​0x018D	Extron Design Services
+​398	​0x018E	Fitbit, Inc.
+​399	​0x018F	Fireflies Systems
+​400	​0x0190	Intelletto Technologies Inc.
+​401	​0x0191	FDK CORPORATION
+​402	​0x0192	Cloudleaf, Inc
+​403	​0x0193	Maveric Automation LLC
+​404	​0x0194	Acoustic Stream Corporation
+​405	​0x0195	Zuli
+​406	​0x0196	Paxton Access Ltd
+​407	​0x0197	WiSilica Inc
+​408	​0x0198	Vengit Limited
+​409	​0x0199	SALTO SYSTEMS S.L.
+​410	​0x019A	TRON Forum (formerly T-Engine Forum)
+​411	​0x019B	CUBETECH s.r.o.
+​412	​0x019C	Cokiya Incorporated
+​413	​0x019D	CVS Health
+​414	​0x019E	Ceruus
+​415	​0x019F	Strainstall Ltd
+​416	​0x01A0	Channel Enterprises (HK) Ltd.
+​417	​0x01A1	FIAMM
+​418	​0x01A2	GIGALANE.CO.,LTD
+​419	​0x01A3	EROAD
+​420	​0x01A4	Mine Safety Appliances
+​421	​0x01A5	Icon Health and Fitness
+​422	​0x01A6	Asandoo GmbH
+​423	​0x01A7	ENERGOUS CORPORATION
+​424	​0x01A8	Taobao
+​425	​0x01A9	Canon Inc.
+​426	​0x01AA	Geophysical Technology Inc.
+​427	​0x01AB	Facebook, Inc.
+​428	​0x01AC	Nipro Diagnostics, Inc.
+​429	​0x01AD	FlightSafety International
+​430	​0x01AE	Earlens Corporation
+​431	​0x01AF	Sunrise Micro Devices, Inc.
+​432	​0x01B0	Star Micronics Co., Ltd.
+​433	​0x01B1	Netizens Sp. z o.o.
+​434	​0x01B2	Nymi Inc.
+​435	​0x01B3	Nytec, Inc.
+​436	​0x01B4	Trineo Sp. z o.o.
+​437	​0x01B5	Nest Labs Inc.
+​438	​0x01B6	LM Technologies Ltd
+​439	​0x01B7	General Electric Company
+​440	​0x01B8	i+D3 S.L.
+​441	​0x01B9	HANA Micron
+​442	​0x01BA	Stages Cycling LLC
+​443	​0x01BB	Cochlear Bone Anchored Solutions AB
+​444	​0x01BC	SenionLab AB
+​445	​0x01BD	Syszone Co., Ltd
+​446	​0x01BE	Pulsate Mobile Ltd.
+​447	​0x01BF	Hong Kong HunterSun Electronic Limited
+​448	​0x01C0	pironex GmbH
+​449	​0x01C1	BRADATECH Corp.
+​450	​0x01C2	Transenergooil AG
+​451	​0x01C3	Bunch
+​452	​0x01C4	DME Microelectronics
+​453	​0x01C5	Bitcraze AB
+​454	​0x01C6	HASWARE Inc.
+​455	​0x01C7	Abiogenix Inc.
+​456	​0x01C8	Poly-Control ApS
+​457	​0x01C9	Avi-on
+​458	​0x01CA	Laerdal Medical AS
+​459	​0x01CB	Fetch My Pet
+​460	​0x01CC	Sam Labs Ltd.
+​461	​0x01CD	Chengdu Synwing Technology Ltd
+​462	​0x01CE	HOUWA SYSTEM DESIGN, k.k.
+​463	​0x01CF	BSH
+​464	​0x01D0	Primus Inter Pares Ltd
+​465	​0x01D1	August
+​466	​0x01D2	Gill Electronics
+​467	​0x01D3	Sky Wave Design
+​468	​0x01D4	Newlab S.r.l.
+​469	​0x01D5	ELAD srl​
+​470	​0x01D6	​G-wearables inc.
+​471	​0x01D7	​Squadrone Systems Inc.
+​472	​0x01D8	​Code Corporation
+​473	​0x01D9	​Savant Systems LLC
+​474	​0x01DA	​Logitech International SA
+​475	​0x01DB	​Innblue Consulting
+​476	​0x01DC	​iParking Ltd.
+​477	​0x01DD	​Koninklijke Philips Electronics N.V.
+​478	​0x01DE	​Minelab Electronics Pty Limited
+​479	​0x01DF	​Bison Group Ltd.
+​480	​0x01E0	​Widex A/S
+​481	​​0x01E1	​Jolla Ltd
+​482	​​0x01E2	​Lectronix, Inc.
+​483	​​0x01E3	​Caterpillar Inc
+​484	​​0x01E4	​Freedom Innovations
+​485	​​0x01E5	​Dynamic Devices Ltd
+​486	​​0x01E6	​Technology Solutions (UK) Ltd
+​487	​​​0x01E7	​IPS Group Inc.
+​488	​​​0x01E8	​STIR
+​489	0x01E9​	Sano, Inc​
+​490	0x01EA​	Advanced Application Design, Inc.​
+​491	0x01EB​	AutoMap LLC​
+​492	​0x01EC	​Spreadtrum Communications Shanghai Ltd
+​493	​0x01ED	​CuteCircuit LTD
+​494	​0x01EE	​Valeo Service
+​495	​0x01EF	​Fullpower Technologies, Inc.
+​496	​0x01F0	​KloudNation
+​497	​0x01F1	​Zebra Technologies Corporation
+​498	​0x01F2	​Itron, Inc.
+​499	​0x01F3	​The University of Tokyo
+​500	​0x01F4	​UTC Fire and Security
+​501	​0x01F5	​Cool Webthings Limited
+​502	​0x01F6	​DJO Global
+​503	​0x01F7	​Gelliner Limited
+​504	​0x01F8	​Anyka (Guangzhou) Microelectronics Technology Co, LTD
+​505	​0x01F9	​Medtronic, Inc.
+​506	​0x01FA	​Gozio, Inc.
+​507	​0x01FB	​Form Lifting, LLC
+​508	​0x01FC	​Wahoo Fitness, LLC
+​509	​0x01FD	​Kontakt Micro-Location Sp. z o.o.
+​510	​0x01FE	​Radio System Corporation
+​511	​0x01FF	​Freescale Semiconductor, Inc.
+​512	​0x0200	​Verifone Systems PTe Ltd. Taiwan Branch
+​513	​0x0201	​AR Timing
+​514	​0x0202	​Rigado LLC
+​515	​0x0203	​Kemppi Oy
+​65194	0xFEAA	Google
+​65535	​0xFFFF	​Special Use

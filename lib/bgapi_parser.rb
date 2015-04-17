@@ -1,7 +1,16 @@
+require_relative "bluetooth_company_ids"
+
 module BgapiParser
+  Company_Bluetooth_Ids = BluetoothCompanyIds.new.company_list
 
   def self.hexdump(bytes)
     bytes.map{|b| sprintf("%02X", b.ord) }.join(" ")
+  end
+
+  # make sure the order is network byte order, so the order the raw bytes appear over the air
+  def self.company_bluetooth_name(id_byte_array)
+    id = hexdump(id_byte_array).downcase
+    BgapiParser::Company_Bluetooth_Ids[id] || "Unknown"
   end
 
   class Base
@@ -73,23 +82,22 @@ module BgapiParser
   class Event < Start
 
     def next_obj
-      packet_class = interesting_bytes(1).last.ord
+      #packet_class = interesting_bytes(1).last.ord
       #puts "packet class: #{packet_class}"
+      def packet_class
+        @all_bytes[2].ord
+      end
+
+      def packet_command
+        @all_bytes[3].ord
+      end
 
       # resets the bytes of interest to just the event payload
       # rather than including all the header bytes
-      @bytes_of_interest = @unprocessed_bytes.take(payload_length)
-      #update_bytes(payload_length)
+      def event_bytes
+        @all_bytes.last(payload_length)
+      end
 
-      #p @bytes_of_interest
-      # @sp_enum = ConsumeArray.new(@sp_enum.take(payload_length))
-      # #p next_bytes
-      # #next_bytes = @sp_enum[0]
-      # #p @sp_enum
-      #
-      # @bytes_so_far.concat( next_bytes )
-      # packet_class = next_bytes[0].ord
-      #
       case packet_class
         when 0x06
           BgapiParser::Gap.new(self).next_obj
@@ -100,10 +108,8 @@ module BgapiParser
   end
 
   class Gap < Event
+
     def next_obj
-
-      packet_command = interesting_bytes(1).first.ord
-
       case packet_command
         when 0x00
           BgapiParser::ScanResponseHeader.new(self).next_obj
@@ -117,27 +123,27 @@ module BgapiParser
 
     def rssi
       # unpack as a signed byte
-      @all_bytes[4].unpack('c').first
+      event_bytes[0].unpack('c').first
     end
 
     def packet_type
-      @all_bytes[5].ord
+      event_bytes[1].ord
     end
 
     def sender_address
-      hexdump(@all_bytes[6..11].reverse).split(" ").join(":")
+      hexdump(event_bytes[2..7].reverse).split(" ").join(":")
     end
 
     def address_type
-      @all_bytes[12].ord
+      event_bytes[8].ord
     end
 
     def bond
-      @all_bytes[13].ord
+      event_bytes[9].ord
     end
 
     def scan_response_length
-      @all_bytes[14].ord
+      event_bytes[10].ord
     end
 
     def next_obj
@@ -150,16 +156,23 @@ module BgapiParser
 
     def adv_bytes
       # grabs the last
-      hexdump(@bytes_of_interest.last(scan_response_length))
+      event_bytes.last(scan_response_length)
+    end
+
+    def adv_hex
+      hexdump(adv_bytes)
+    end
+
+    def beacon_company_id
+      adv_bytes[5..6]
+    end
+
+    def beacon_company_name
+      BgapiParser.company_bluetooth_name(company_id)
     end
 
     def next_obj
-       #@bytes_of_interest.take(scan_response_length)
-      #@bytes_of_interest.length
-      #p scan_response_length
       interesting_bytes(scan_response_length)
-      #p @bytes_of_interest.length
-      #puts hexdump(@bytes_of_interest)
       self
     end
   end
