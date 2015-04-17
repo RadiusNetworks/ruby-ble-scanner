@@ -1,4 +1,4 @@
-require_relative "serhex" # rbcomser with ruby wrapper
+require_relative "lib/serhex" # rbcomser with ruby wrapper
 require "em-serialport"
 
 def pack(a)
