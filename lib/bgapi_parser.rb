@@ -18,7 +18,7 @@ module BgapiParser
     end
 
     def hexdump(bytes)
-      BgapiPaser.hexdump(bytes)
+      BgapiParser.hexdump(bytes)
     end
   end
 
@@ -27,6 +27,13 @@ module BgapiParser
       @bytes_of_interest = prev_obj.bytes_of_interest
       @unprocessed_bytes = prev_obj.unprocessed_bytes
       @all_bytes = prev_obj.all_bytes
+    end
+
+    def fix_missing_initial_byte
+      # assume event response
+      @bytes_of_interest = []
+      @all_bytes.unshift(0x80)
+      @unprocessed_bytes = @all_bytes.dup
     end
 
     def payload_length
@@ -43,10 +50,16 @@ module BgapiParser
           BgapiParser::Response.new(self).next_obj
         when 128
           BgapiParser::Event.new(self).next_obj
-        else #
-          #self
-          p "??"
-          BgapiParser.Event.new(self).next_obj
+        else
+          # for some reason the first byte can be missed, this
+          # will try and recover from that
+          if @bytes_of_interest[1] = 0x06
+            #fix_missing_initial_byte
+            bytes = [0x80].concat @all_bytes
+            BgapiParser::Start.new( BgapiParser::Base.new([], bytes))
+          else
+            self
+          end
       end
     end
   end
@@ -61,7 +74,7 @@ module BgapiParser
 
     def next_obj
       packet_class = interesting_bytes(1).last.ord
-
+      #puts "packet class: #{packet_class}"
 
       # resets the bytes of interest to just the event payload
       # rather than including all the header bytes

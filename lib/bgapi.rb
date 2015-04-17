@@ -46,8 +46,8 @@ end
 
 x = Bgapi.new("/dev/cu.usbmodem1").beacon_scan do |parsed_obj|
   if parsed_obj.is_a? BgapiParser::AdvBytes
-    puts "+ " + BgapiParser.hexdump(parsed_obj.all_bytes)
+    puts parsed_obj.adv_bytes
   else
-    puts "-  " + BgapiParser.hexdump(parsed_obj.all_bytes)
+    puts "== skipped: #{parsed_obj.class} #{BgapiParser::hexdump parsed_obj.all_bytes}=="
   end
 end
