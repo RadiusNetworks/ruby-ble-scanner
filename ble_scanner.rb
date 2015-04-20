@@ -19,7 +19,7 @@ class BleScanner
   end
 
   def gap_discover(port=@port)
-    mode = 1
+    mode = 2
     cmd = [0,1,6,2, mode]
     resp_len = 80
     resp = send_cmd(cmd, resp_len)
