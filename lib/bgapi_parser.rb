@@ -1,7 +1,10 @@
+
 require_relative "bluetooth_company_ids"
+require_relative "mac_vendor_lookup"
 
 module BgapiParser
   Company_Bluetooth_Ids = BluetoothCompanyIds.new.company_list
+  MacLookup = MacVendorLookup.new
 
   def self.hexdump(bytes)
     bytes.map{|b| sprintf("%02X", b.ord) }.join(" ")
@@ -120,7 +123,6 @@ module BgapiParser
   end
 
   class ScanResponseHeader < Gap
-
     def rssi
       # unpack as a signed byte
       event_bytes[0].unpack('c').first
@@ -132,6 +134,10 @@ module BgapiParser
 
     def sender_address
       hexdump(event_bytes[2..7].reverse).split(" ").join(":")
+    end
+
+    def hardware_manufacturer
+      MacLookup.mac(sender_address)[:name]
     end
 
     def address_type
@@ -168,7 +174,7 @@ module BgapiParser
     end
 
     def beacon_company_name
-      BgapiParser.company_bluetooth_name(company_id)
+      BgapiParser.company_bluetooth_name(beacon_company_id)
     end
 
     def next_obj
