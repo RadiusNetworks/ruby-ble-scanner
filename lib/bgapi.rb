@@ -37,7 +37,11 @@ class Bgapi
   end
 
   def raw_scan
-    gap_discover {|bytes| yield bytes.chars.map{|b| sprintf("%02X", b.ord) }.join(" ")}
+    gap_discover {|byte_str| yield byte_str.chars}
+  end
+
+  def hex_scan
+    raw_scan{ |bytes| yield bytes.map{|b| sprintf("%02X", b.ord) }.join(" ") }
   end
 end
 

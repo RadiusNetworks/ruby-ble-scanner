@@ -22,4 +22,8 @@ class BluetoothCompanyIds
   def company_list
     @company_list
   end
+
+  def find_by_id(id)
+    @company_list[id] || "Unknown"
+  end
 end
