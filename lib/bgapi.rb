@@ -44,10 +44,10 @@ end
 
 #x = Bgapi.new("/dev/cu.usbmodem1").raw_scan{|data| puts data}
 
-x = Bgapi.new("/dev/cu.usbmodem1").beacon_scan do |parsed_obj|
-  if parsed_obj.is_a? BgapiParser::AdvBytes
-    puts "#{parsed_obj.beacon_company_name}, #{parsed_obj.hardware_manufacturer}, #{parsed_obj.rssi}, #{parsed_obj.sender_address} #{parsed_obj.adv_hex}"
-  else
-    puts "== skipped: #{parsed_obj.class} #{BgapiParser::hexdump parsed_obj.all_bytes}=="
-  end
-end
+# x = Bgapi.new("/dev/cu.usbmodem1").beacon_scan do |parsed_obj|
+#   if parsed_obj.is_a? BgapiParser::AdvBytes
+#     puts "#{parsed_obj.beacon_company_name}, #{parsed_obj.hardware_manufacturer}, #{parsed_obj.rssi}, #{parsed_obj.sender_address} #{parsed_obj.adv_hex}"
+#   else
+#     puts "== skipped: #{parsed_obj.class} #{BgapiParser::hexdump parsed_obj.all_bytes}=="
+#   end
+# end

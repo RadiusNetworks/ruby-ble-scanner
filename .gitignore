@@ -1,2 +1,5 @@
 .ruby-version
 .ruby-gemset
+
+#object files
+*.o

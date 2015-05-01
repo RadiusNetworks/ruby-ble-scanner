@@ -1,34 +1,19 @@
 require_relative "lib/serhex" # rbcomser with ruby wrapper
 require "em-serialport"
 
-def pack(a)
-  a.pack("C*")
-end
+require_relative "./lib/bgapi"
 
-def send_cmd(cmd, resp_len, port=@port)
-  resp = Array.new(resp_len, 0).pack("C*")
-  cmd_bytes = pack(cmd)
-  Serhex.set_rblog_level(:error)
-  Serhex.send_cmd(port, cmd_bytes, cmd_bytes.size, resp)
-  sleep 0.1
-  resp
-end
+found_devices = {}
 
-def gap_discover(port=@port)
-  mode = 1
-  cmd = [0,1,6,2, mode]
-  resp_len = 80
-  resp = send_cmd(cmd, resp_len)
-  EM.run do
-    serial = EventMachine.open_serial(port, 115200, 8, nil, 1)
-    serial.on_data do |data|
-      yield data.chars.map{|b| sprintf("%02X", b.ord) }.join(" ")
-    end
+x = Bgapi.new("/dev/cu.usbmodem1").beacon_scan do |parsed_obj|
+  found_devices[parsed_obj.sender_address] = parsed_obj
+
+  found_devices.each do |mac, data|
+    print "#{mac}: #{data.adv_hex}\n"
   end
+
+  found_devices.each do
+    print "\r\e[1A"
+  end
+
 end
-
-
-@port = "/dev/cu.usbmodem1"
-x = 0
-time = Time.now
-gap_discover(@port) {|bytes| puts "#{x+=1},  #{((Time.now - time)*1000).to_i},  #{bytes}"}
