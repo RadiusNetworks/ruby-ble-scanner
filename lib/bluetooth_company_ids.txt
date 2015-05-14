@@ -513,5 +513,4 @@
 ​513	​0x0201	​AR Timing
 ​514	​0x0202	​Rigado LLC
 ​515	​0x0203	​Kemppi Oy
-​65194	0xFEAA	Google Eddystone
 ​65535	​0xFFFF	​Special Use

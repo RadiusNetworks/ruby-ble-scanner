@@ -1,0 +1,9 @@
+1800, Generic Access
+1801, Generic Attribute
+1804, Tx Power
+180A, Device Information
+181C, User Data
+1813, Scan Parameters
+b24a421d67a84df4bbd78933446c1724, SR-UUID Test Beacon
+42f16149272042a7a8d29988af73de3c, RadBeacon
+4f3edfe76f174f87b2eeea2cdac0dd02, RadBeacon G

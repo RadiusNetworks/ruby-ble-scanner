@@ -1,3 +1,9 @@
+PATH
+  remote: /Users/dave/Projects/radius/serhexr
+  specs:
+    serhexr (0.0.2)
+      ffi (~> 1.9)
+
 GEM
   remote: https://rubygems.org/
   specs:
@@ -31,3 +37,4 @@ DEPENDENCIES
   ffi
   mac_vendor
   rspec
+  serhexr!

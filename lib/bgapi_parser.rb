@@ -132,6 +132,17 @@ module BgapiParser
       event_bytes[1].ord
     end
 
+    def packet_type_lookup
+      case packet_type
+        when 0
+          "advertisement"
+        when 4
+          "scan response"
+        else
+         "unknown: #{packet_type}"
+      end
+    end
+
     def sender_address
       hexdump(event_bytes[2..7].reverse).split(" ").join(":")
     end
@@ -142,6 +153,17 @@ module BgapiParser
 
     def address_type
       event_bytes[8].ord
+    end
+
+    def address_type_lookup
+      case address_type
+        when 0
+          "public"
+        when 1
+          "random"
+        else
+          "unknown: #{address_type}"
+      end
     end
 
     def bond
