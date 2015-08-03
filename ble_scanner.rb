@@ -35,7 +35,7 @@ found_devices = {}
 count = 0
 t0 = Time.now
 
-colors = [ :green, :blue, :magenta, :cyan]
+colors = [ :green, :blue, :magenta, :cyan, :red]
 color_index = 0
 uniq_objs = {}
 
@@ -59,18 +59,19 @@ x = Bgapi.new("/dev/cu.usbmodem1").beacon_scan do |ble_obj|
     puts "Time:     #{elapsed_time.round(2)}"
     puts "Avg Rate: #{average_rate.round(2)}"
 
-    uniq_id = ble_obj.adv_hex[0..30]
+    uniq_id = "#{ble_obj.sender_address} #{ble_obj.adv_hex[0..30]}"
+    data[:mac] = ble_obj.sender_address
     data[:hex] = ble_obj.adv_hex
     data[:count] = count
     data[:color] = uniq_objs[uniq_id] && uniq_objs[uniq_id][:color] || colors[color_index+=1]
 
     uniq_objs[uniq_id] = data
 
-    uniq_objs.each do |id, data|
+    (uniq_objs.values.sort{|o1, o2| o1[:mac] <=> o2[:mac]}).each do |data|
       if data[:color] && data[:hex].respond_to?(:red)
-        puts "#{data[:count]}: #{data[:hex]}".__send__(data[:color])
+        puts "#{data[:count]}: #{data[:mac]} #{data[:hex]}".__send__(data[:color])
       else
-        puts "#{data[:count]}: #{data[:hex]}"
+        puts "#{data[:count]}: #{data[:mac]} #{data[:hex]}"
       end
     end
     #parsed_objs = Ble::Parser.new(ble_obj.adv_bytes).fetch
