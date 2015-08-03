@@ -1,12 +1,13 @@
 PATH
   remote: /Users/dave/Projects/radius/serhexr
   specs:
-    serhexr (0.0.2)
+    serhexr (0.0.8)
       ffi (~> 1.9)
 
 GEM
   remote: https://rubygems.org/
   specs:
+    colorize (0.7.7)
     diff-lcs (1.2.5)
     em-serialport (0.0.2)
       eventmachine (= 0.12.10)
@@ -33,6 +34,7 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
+  colorize
   em-serialport
   ffi
   mac_vendor

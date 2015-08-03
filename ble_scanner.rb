@@ -1,6 +1,7 @@
 require "serhexr" # rbcomser with ruby wrapper
 require "em-serialport"
 
+require 'colorize'
 require_relative "./lib/bgapi"
 require_relative "./lib/ble"
 
@@ -34,24 +35,48 @@ found_devices = {}
 count = 0
 t0 = Time.now
 
+colors = [ :green, :blue, :magenta, :cyan]
+color_index = 0
+uniq_objs = {}
+
 x = Bgapi.new("/dev/cu.usbmodem1").beacon_scan do |ble_obj|
+  count += 1
+  data = {}
+  now = Time.now
+  elapsed_time = now - t0
+  average_rate = count / elapsed_time
 
-  p ble_obj
+  #p ble_obj
   if ble_obj.respond_to?(:adv_bytes) #&& ble_obj.packet_type != 0
+    puts "\033[2J" # clear screen
 
-    # puts
-    # puts "BDADDR:  #{ble_obj.sender_address}"
-    # puts "RSSI:    #{ble_obj.rssi}"
-    # puts "Packet:  #{ble_obj.packet_type_lookup}"
-    # puts "Addr:    #{ble_obj.address_type_lookup}"
-    # puts "  #{ble_obj.adv_hex}"
-    #
-    # parsed_objs = Ble::Parser.new(ble_obj.adv_bytes).fetch
-    # parsed_objs.each do |o|
-    #   puts "    #{o}"
-    # end
-    #
-    # puts "\033[9A"
+    puts
+    puts "BDADDR:   #{ble_obj.sender_address}"
+    puts "RSSI:     #{ble_obj.rssi}"
+    puts "Packet:   #{ble_obj.packet_type_lookup}"
+    puts "Addr:     #{ble_obj.address_type_lookup}"
+    puts "Count:    #{count}"
+    puts "Time:     #{elapsed_time.round(2)}"
+    puts "Avg Rate: #{average_rate.round(2)}"
 
+    uniq_id = ble_obj.adv_hex[0..30]
+    data[:hex] = ble_obj.adv_hex
+    data[:count] = count
+    data[:color] = uniq_objs[uniq_id] && uniq_objs[uniq_id][:color] || colors[color_index+=1]
+
+    uniq_objs[uniq_id] = data
+
+    uniq_objs.each do |id, data|
+      if data[:color] && data[:hex].respond_to?(:red)
+        puts "#{data[:count]}: #{data[:hex]}".__send__(data[:color])
+      else
+        puts "#{data[:count]}: #{data[:hex]}"
+      end
+    end
+    #parsed_objs = Ble::Parser.new(ble_obj.adv_bytes).fetch
+    #parsed_objs.each do |o|
+    #end
+   
+    #puts "\033[#{lines+uniq_objs.size+1}A"
   end
 end
