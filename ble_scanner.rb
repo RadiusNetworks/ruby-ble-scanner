@@ -39,6 +39,10 @@ max_buffer_size = 60 #seconds
 colors = [ :green, :blue, :magenta, :cyan, :red]
 color_index = 0
 uniq_objs = {}
+obj_values = []
+current_size = 0
+
+
 
 def window10s(now, time_hash)
   time_hash.select{|t, data| now-t < 10 }
@@ -47,6 +51,10 @@ end
 def array_average(arr)
   return "" if arr.empty?
   arr.inject{ |sum, el| sum + el }.to_f / arr.size
+end
+
+def sorted(objs)
+  objs.values.sort{|o1, o2| o1[:mac] <=> o2[:mac]}
 end
 
 x = Bgapi.new("/dev/cu.usbmodem1").beacon_scan do |ble_obj|
@@ -59,21 +67,12 @@ x = Bgapi.new("/dev/cu.usbmodem1").beacon_scan do |ble_obj|
 
   #p ble_obj
   if ble_obj.respond_to?(:adv_bytes) #&& ble_obj.packet_type != 0
-    puts "\033[2J" # clear screen
-
-    puts
-    puts "BDADDR:   #{ble_obj.sender_address}"
-    puts "RSSI:     #{ble_obj.rssi}"
-    puts "Packet:   #{ble_obj.packet_type_lookup}"
-    puts "Addr:     #{ble_obj.address_type_lookup}"
-    puts "Count:    #{count}"
-    puts "Time:     #{elapsed_time.round(2)}"
-    puts "Avg Rate: #{average_rate.round(2)}"
 
     uniq_id = "#{ble_obj.sender_address} #{ble_obj.adv_hex[0..30]}"
     this_data = uniq_objs[uniq_id] ||= {}
     this_data[:data_window] ||= {}
     this_data[:data_window][now] = ble_obj.rssi
+    this_data[:packet] = ble_obj.packet_type_lookup
 
     this10s = window10s(now, this_data[:data_window])
     this_data[:rate10s] = (this10s.size/10.0).round(2)
@@ -91,21 +90,52 @@ x = Bgapi.new("/dev/cu.usbmodem1").beacon_scan do |ble_obj|
     this_data[:my_count] += 1
     this_data[:my_rate] = (this_data[:my_count]/elapsed_time).round(2)
 
-    (uniq_objs.values.sort{|o1, o2| o1[:mac] <=> o2[:mac]}).each do |data|
+    # set cursor home
+    puts "\33[0;0H"
+
+    #clear screen
+    puts "\033[2J"
+
+
+    puts
+    puts "BDADDR:   #{ble_obj.sender_address}"
+    puts "RSSI:     #{ble_obj.rssi}"
+    puts "Addr:     #{ble_obj.address_type_lookup}"
+    puts "Count:    #{count}"
+    puts "Time:     #{elapsed_time.round(2)}"
+    puts "Avg Rate: #{average_rate.round(2)}"
+    lines = 9
+
+
+    if current_size != uniq_objs.size
+      obj_values = sorted(uniq_objs)
+      current_size = uniq_objs.size
+    end
+
+    # puts "\33[9;0H"
+    #puts "\033[2J" # clear screen
+    obj_values.each do |data|
+      #printf("|%15s|%6d|\n", "Cathy", 15)
+
       if data[:color] && data[:hex].respond_to?(:red)
         puts "#{data[:mac]}".__send__(data[:color])
-        puts "  RATE  10s: #{data[:rate10s]}, window: #{data[:window_rate]}, rate: #{data[:my_rate]}".__send__(data[:color])
-        puts "  COUNT 10s: #{this10s.size}, window: #{data[:data_window].size}, my count: #{data[:my_count]},  main count: #{data[:main_count]}".__send__(data[:color])
+        puts "  PACKET: #{data[:packet]}".__send__(data[:color])
+        printf("  RATE  10s: %3s, window: %4s, rate: %4s\n".__send__(data[:color]), data[:rate10s], data[:window_rate], data[:my_rate])
+        printf("  COUNT 10s: %3s, window: %4s, %16s,  %18s\n".__send__(data[:color]), this10s.size, data[:data_window].size, "my count: #{data[:my_count]}", "main count: #{data[:main_count]}")
         puts "  RSSI  10s: #{array_average(this10s.values).round(2)}, window: #{array_average(this_data[:data_window].values).round(2)}".__send__(data[:color])
         puts "    #{data[:hex]}".__send__(data[:color])
-      else # no color support
-        puts "#{data[:mac]} #{data[:hex]}"
+        #lines = lines + 5
+      # else # no color support
+      #   puts "#{data[:mac]} #{data[:hex]}"
+      #
+      #   #lines = lines + 1
       end
     end
+
     #parsed_objs = Ble::Parser.new(ble_obj.adv_bytes).fetch
     #parsed_objs.each do |o|
     #end
-   
-    #puts "\033[#{lines+uniq_objs.size+1}A"
+    #p lines
+    #puts "\033[#{lines}A"
   end
 end
