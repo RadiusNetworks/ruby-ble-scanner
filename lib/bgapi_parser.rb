@@ -87,6 +87,7 @@ module BgapiParser
     def next_obj
       #packet_class = interesting_bytes(1).last.ord
       #puts "packet class: #{packet_class}"
+
       def packet_class
         @all_bytes[2].ord
       end

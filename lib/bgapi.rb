@@ -43,7 +43,7 @@ class Bgapi
   def send_cmd(cmd, resp_len, port=@port)
     resp = Array.new(resp_len, 0).pack("C*")
     cmd_bytes = pack(cmd)
-    p Ble.hexdump (cmd_bytes.chars)
+    #p Ble.hexdump (cmd_bytes.chars)
     Serhexr.set_rblog_level(:error)
     Serhexr.send_cmd(port, cmd_bytes, cmd_bytes.size, resp)
     sleep 0.1
@@ -75,7 +75,6 @@ class Bgapi
 
   def beacon_scan
     gap_discover { |bytes| yield BgapiParser::Start.new( BgapiParser::Base.new([], bytes.chars) ).next_obj }
-
   end
 
   def raw_scan
