@@ -76,12 +76,12 @@ x = Bgapi.new("/dev/cu.usbmodem1").beacon_scan do |ble_obj|
     this_data[:data_window][now] = ble_obj.rssi
 
     this10s = window10s(now, this_data[:data_window])
-    this_data[:rate10s] = this10s.size/10
+    this_data[:rate10s] = (this10s.size/10.0).round(2)
 
     # delete old buffer data
     this_data[:data_window].delete_if{ |t, data| now-t > max_buffer_size}
 
-    this_data[:window_rate] = this_data[:data_window].size/max_buffer_size
+    this_data[:window_rate] = (this_data[:data_window].size/max_buffer_size.to_f).round(2)
 
     this_data[:mac] = ble_obj.sender_address
     this_data[:hex] = ble_obj.adv_hex
