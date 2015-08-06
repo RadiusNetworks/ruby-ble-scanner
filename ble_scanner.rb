@@ -36,7 +36,7 @@ count = 0
 t0 = Time.now
 max_buffer_size = 60 #seconds
 
-colors = [ :green, :blue, :magenta, :cyan, :red]
+colors = [ :green, :blue, :magenta, :cyan, :light_magenta, :light_cyan, :red, :light_black, :light_red, :light_green, :yellow, :light_blue, :white, :light_white]
 color_index = 0
 uniq_objs = {}
 obj_values = []
@@ -68,7 +68,7 @@ x = Bgapi.new("/dev/cu.usbmodem1").beacon_scan do |ble_obj|
   #p ble_obj
   if ble_obj.respond_to?(:adv_bytes) #&& ble_obj.packet_type != 0
 
-    uniq_id = "#{ble_obj.sender_address} #{ble_obj.adv_hex[0..11]}"
+    uniq_id = "#{ble_obj.sender_address} #{ble_obj.adv_hex[0..30]}"
     this_data = uniq_objs[uniq_id] ||= {}
     this_data[:data_window] ||= {}
     this_data[:data_window][now] = ble_obj.rssi
@@ -106,6 +106,7 @@ x = Bgapi.new("/dev/cu.usbmodem1").beacon_scan do |ble_obj|
     puts "Count:    #{count}"
     puts "Time:     #{elapsed_time.round(2)}"
     puts "Avg Rate: #{average_rate.round(2)}"
+    puts "Uniq:     #{uniq_objs.size}"
     lines = 9
 
 
@@ -127,8 +128,8 @@ x = Bgapi.new("/dev/cu.usbmodem1").beacon_scan do |ble_obj|
         printf("  RSSI  10s: %6.2f, window: %6.2f\n".__send__(data[:color]), array_average(this10s.values), array_average(this_data[:data_window].values))
         puts "    #{data[:hex]}".__send__(data[:color])
         #lines = lines + 5
-      # else # no color support
-      #   puts "#{data[:mac]} #{data[:hex]}"
+      else # no color support
+        puts "#{data[:mac]} #{data[:hex]}"
       #
       #   #lines = lines + 1
       end
