@@ -68,19 +68,23 @@ x = Bgapi.new("/dev/cu.usbmodem1").beacon_scan do |ble_obj|
   #p ble_obj
   if ble_obj.respond_to?(:adv_bytes) #&& ble_obj.packet_type != 0
 
-    uniq_id = "#{ble_obj.sender_address} #{ble_obj.adv_hex[0..30]}"
+    uniq_id = "#{ble_obj.sender_address} #{ble_obj.adv_hex[0..11]}"
     this_data = uniq_objs[uniq_id] ||= {}
     this_data[:data_window] ||= {}
     this_data[:data_window][now] = ble_obj.rssi
     this_data[:packet] = ble_obj.packet_type_lookup
 
     this10s = window10s(now, this_data[:data_window])
-    this_data[:rate10s] = (this10s.size/10.0).round(2)
+
+    this_data[:count10s] = this10s.size
+    this_data[:time10s] = this10s.keys.last - this10s.keys.first
+
+    this_data[:rate10s] = this_data[:count10s]/this_data[:time10s].to_f
 
     # delete old buffer data
     this_data[:data_window].delete_if{ |t, data| now-t > max_buffer_size}
 
-    this_data[:window_rate] = (this_data[:data_window].size/max_buffer_size.to_f).round(2)
+    this_data[:window_rate] = this_data[:data_window].size/max_buffer_size.to_f
 
     this_data[:mac] = ble_obj.sender_address
     this_data[:hex] = ble_obj.adv_hex
@@ -88,7 +92,7 @@ x = Bgapi.new("/dev/cu.usbmodem1").beacon_scan do |ble_obj|
     this_data[:color] = uniq_objs[uniq_id] && uniq_objs[uniq_id][:color] || colors[color_index+=1]
     this_data[:my_count] ||= 0
     this_data[:my_count] += 1
-    this_data[:my_rate] = (this_data[:my_count]/elapsed_time).round(2)
+    this_data[:my_rate] = this_data[:my_count]/elapsed_time
 
     # set cursor home
     puts "\33[0;0H"
@@ -96,14 +100,12 @@ x = Bgapi.new("/dev/cu.usbmodem1").beacon_scan do |ble_obj|
     #clear screen
     puts "\033[2J"
 
-
-    puts
     puts "BDADDR:   #{ble_obj.sender_address}"
     puts "RSSI:     #{ble_obj.rssi}"
     puts "Addr:     #{ble_obj.address_type_lookup}"
     puts "Count:    #{count}"
-    puts "Time:     #{elapsed_time.round(2)}"
-    puts "Avg Rate: #{average_rate.round(2)}"
+    puts "Time:     #{elapsed_time}"
+    puts "Avg Rate: #{average_rate}"
     lines = 9
 
 
@@ -120,9 +122,9 @@ x = Bgapi.new("/dev/cu.usbmodem1").beacon_scan do |ble_obj|
       if data[:color] && data[:hex].respond_to?(:red)
         puts "#{data[:mac]}".__send__(data[:color])
         puts "  PACKET: #{data[:packet]}".__send__(data[:color])
-        printf("  RATE  10s: %3s, window: %4s, rate: %4s\n".__send__(data[:color]), data[:rate10s], data[:window_rate], data[:my_rate])
-        printf("  COUNT 10s: %3s, window: %4s, %16s,  %18s\n".__send__(data[:color]), this10s.size, data[:data_window].size, "my count: #{data[:my_count]}", "main count: #{data[:main_count]}")
-        puts "  RSSI  10s: #{array_average(this10s.values).round(2)}, window: #{array_average(this_data[:data_window].values).round(2)}".__send__(data[:color])
+        printf("  RATE  10s: %6.2f, window: %6.2f, rate: %6.2f\n".__send__(data[:color]), data[:rate10s], data[:window_rate], data[:my_rate])
+        printf("  COUNT 10s: %3d(%5.2f), window: %4d, my total: %6d, aggr total: %7d\n".__send__(data[:color]), data[:count10s], data[:time10s], data[:data_window].size, data[:my_count], data[:main_count])
+        printf("  RSSI  10s: %6.2f, window: %6.2f\n".__send__(data[:color]), array_average(this10s.values), array_average(this_data[:data_window].values))
         puts "    #{data[:hex]}".__send__(data[:color])
         #lines = lines + 5
       # else # no color support
