@@ -104,8 +104,8 @@ x = Bgapi.new("/dev/cu.usbmodem1").beacon_scan do |ble_obj|
     puts "RSSI:     #{ble_obj.rssi}"
     puts "Addr:     #{ble_obj.address_type_lookup}"
     puts "Count:    #{count}"
-    puts "Time:     #{elapsed_time}"
-    puts "Avg Rate: #{average_rate}"
+    puts "Time:     #{elapsed_time.round(2)}"
+    puts "Avg Rate: #{average_rate.round(2)}"
     lines = 9
 
 
