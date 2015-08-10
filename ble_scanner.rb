@@ -37,8 +37,8 @@ count = 0
 t0 = Time.now
 max_buffer_size = 60 #seconds
 
-colors = [ :green, :blue, :magenta, :cyan, :red, :yellow, :white]
-color_index = 0
+@colors = [ :green, :blue, :magenta, :cyan, :red, :yellow, :white]
+@color_index = 0
 uniq_objs = {}
 obj_values = []
 current_size = 0
@@ -48,6 +48,7 @@ current_size = 0
 screen = Doze::Screen.instance
 
 win0 = Doze::Window.new(lines: 10, scroll: false)
+win0.window.nodelay = true
 @last_win_pos = nil
 
 def window10s(now, time_hash)
@@ -65,9 +66,16 @@ end
 
 def new_ble_pane
   @last_win_pos ||= 11
-  pane = Doze::Window.new(lines: 6, scroll: false, pos: @last_win_pos)
-  @last_win_pos += 6
+  pane = Doze::Window.new(lines: 7, scroll: false, pos: @last_win_pos)
+  @last_win_pos += 7
   return pane
+end
+
+def next_color
+  color = @colors[@color_index]
+  @color_index += 1
+  @color_index = 0 if @color_index == @colors.size
+  color
 end
 
 win0.out "Waiting for scan data"
@@ -126,7 +134,7 @@ x = Bgapi.new("/dev/cu.usbmodem1").beacon_scan do |ble_obj|
     this_data[:mac] = ble_obj.sender_address
     this_data[:hex] = ble_obj.adv_hex
     this_data[:main_count] = count
-    this_data[:color] = uniq_objs[uniq_id] && uniq_objs[uniq_id][:color] || colors[color_index+=1]
+    this_data[:color] = uniq_objs[uniq_id] && uniq_objs[uniq_id][:color] || next_color
     this_data[:my_count] ||= 0
     this_data[:my_count] += 1
     this_data[:my_rate] = this_data[:my_count]/elapsed_time
@@ -151,7 +159,7 @@ x = Bgapi.new("/dev/cu.usbmodem1").beacon_scan do |ble_obj|
     #puts "\033[2J" # clear screen
     obj_values.each do |data|
 
-      data[:pane].out("#{data[:mac]}", data[:color])
+      data[:pane].out("  #{data[:mac]}", data[:color])
       data[:pane].out("  PKT TYPE: #{data[:packet]}", data[:color])
       data[:pane].out("  RATE  10s: %6.2f, window: %6.2f, rate: %6.2f" %[data[:rate10s], data[:window_rate], data[:my_rate]], data[:color])
       data[:pane].out("  COUNT 10s: %3d(%5.2f), window: %4d, my total: %6d, aggr total: %7d" % [data[:count10s], data[:time10s], data[:data_window].size, data[:my_count], data[:main_count]], data[:color])
@@ -160,10 +168,20 @@ x = Bgapi.new("/dev/cu.usbmodem1").beacon_scan do |ble_obj|
       #lines = lines + 5
     end
 
-    #parsed_objs = Ble::Parser.new(ble_obj.adv_bytes).fetch
-    #parsed_objs.each do |o|
-    #end
-    #p lines
-    #puts "\033[#{lines}A"
+
+    input = win0.getch
+    if input == "r"
+      #reset
+      @last_win_pos = 11
+      screen.clear
+      uniq_objs = {}
+      count = 0
+      t0 = Time.now
+      @color_index = 0
+
+      screen.refresh
+
+    end
+
   end
 end
