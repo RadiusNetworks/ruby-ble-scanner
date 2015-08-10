@@ -47,7 +47,7 @@ current_size = 0
 
 screen = Doze::Screen.instance
 
-win0 = Doze::Window.new(lines: 10, scroll: false)
+win0 = Doze::Window.new(lines: 8, scroll: false)
 win0.window.nodelay = true
 @last_win_pos = nil
 
@@ -65,7 +65,7 @@ def sorted(objs)
 end
 
 def new_ble_pane
-  @last_win_pos ||= 11
+  @last_win_pos ||= 8
   pane = Doze::Window.new(lines: 7, scroll: false, pos: @last_win_pos)
   @last_win_pos += 7
   return pane
@@ -113,7 +113,6 @@ x = Bgapi.new("/dev/cu.usbmodem1").beacon_scan do |ble_obj|
     win0.prep "Avg Rate: #{average_rate.round(2)}"
     win0.prep "Uniq:     #{uniq_objs.size}"
     win0.refresh
-    status_pos_end = 10
 
     uniq_id = "#{ble_obj.sender_address} #{ble_obj.adv_hex[0..36]}"
     this_data = uniq_objs[uniq_id] ||= {}
