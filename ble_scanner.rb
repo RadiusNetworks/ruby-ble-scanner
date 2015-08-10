@@ -88,13 +88,14 @@ x = Bgapi.new("/dev/cu.usbmodem1").beacon_scan do |ble_obj|
   elapsed_time = now - t0
   average_rate = count / elapsed_time
 
-  win0.out "BDADDR: "
-  win0.out "RSSI: "
-  win0.out "Addr Type: "
-  win0.out "Count:    #{count}"
-  win0.out "Time:     #{elapsed_time.round(2)}"
-  win0.out "Avg Rate: #{average_rate.round(2)}"
-  win0.out "Uniq:     #{uniq_objs.size}"
+  # win0.prep "BDADDR: "
+  # win0.prep "RSSI: "
+  # win0.prep "Addr Type: "
+  # win0.prep "Count:    #{count}"
+  # win0.prep "Time:     #{elapsed_time.round(2)}"
+  # win0.prep "Avg Rate: #{average_rate.round(2)}"
+  # win0.prep "Uniq:     #{uniq_objs.size}"
+  # win0.refresh
 
   count += 1
 
@@ -104,13 +105,14 @@ x = Bgapi.new("/dev/cu.usbmodem1").beacon_scan do |ble_obj|
   if ble_obj.respond_to?(:adv_bytes) #&& ble_obj.packet_type != 0
     win0.set_pos([0,0])
 
-    win0.out "BDADDR:   #{ble_obj.sender_address}"
-    win0.out "RSSI:     #{ble_obj.rssi}"
-    win0.out "Addr:     #{ble_obj.address_type_lookup}"
-    win0.out "Count:    #{count}"
-    win0.out "Time:     #{elapsed_time.round(2)}"
-    win0.out "Avg Rate: #{average_rate.round(2)}"
-    win0.out "Uniq:     #{uniq_objs.size}"
+    win0.prep "BDADDR:   #{ble_obj.sender_address}"
+    win0.prep "RSSI:     #{ble_obj.rssi}"
+    win0.prep "Addr:     #{ble_obj.address_type_lookup}"
+    win0.prep "Count:    #{count}"
+    win0.prep "Time:     #{elapsed_time.round(2)}"
+    win0.prep "Avg Rate: #{average_rate.round(2)}"
+    win0.prep "Uniq:     #{uniq_objs.size}"
+    win0.refresh
     status_pos_end = 10
 
     uniq_id = "#{ble_obj.sender_address} #{ble_obj.adv_hex[0..36]}"
@@ -159,12 +161,13 @@ x = Bgapi.new("/dev/cu.usbmodem1").beacon_scan do |ble_obj|
     #puts "\033[2J" # clear screen
     obj_values.each do |data|
 
-      data[:pane].out("  #{data[:mac]}", data[:color])
-      data[:pane].out("  PKT TYPE: #{data[:packet]}", data[:color])
-      data[:pane].out("  RATE  10s: %6.2f, window: %6.2f, rate: %6.2f" %[data[:rate10s], data[:window_rate], data[:my_rate]], data[:color])
-      data[:pane].out("  COUNT 10s: %3d(%5.2f), window: %4d, my total: %6d, aggr total: %7d" % [data[:count10s], data[:time10s], data[:data_window].size, data[:my_count], data[:main_count]], data[:color])
-      data[:pane].out("  RSSI  10s: %6.2f, window: %6.2f" % [array_average(this10s.values), array_average(this_data[:data_window].values)], data[:color])
-      data[:pane].out("    #{data[:hex]}", data[:color])
+      data[:pane].prep("  #{data[:mac]}", data[:color])
+      data[:pane].prep("  PKT TYPE: #{data[:packet]}", data[:color])
+      data[:pane].prep("  RATE  10s: %6.2f, window: %6.2f, rate: %6.2f" %[data[:rate10s], data[:window_rate], data[:my_rate]], data[:color])
+      data[:pane].prep("  COUNT 10s: %3d(%5.2f), window: %4d, my total: %6d, aggr total: %7d" % [data[:count10s], data[:time10s], data[:data_window].size, data[:my_count], data[:main_count]], data[:color])
+      data[:pane].prep("  RSSI  10s: %6.2f, window: %6.2f" % [array_average(this10s.values), array_average(this_data[:data_window].values)], data[:color])
+      data[:pane].prep("    #{data[:hex]}", data[:color])
+      data[:pane].refresh
       #lines = lines + 5
     end
 
