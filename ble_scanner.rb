@@ -1,9 +1,10 @@
 require "serhexr" # rbcomser with ruby wrapper
 require "em-serialport"
 
-require 'colorize'
+require 'doze'
 require_relative "./lib/bgapi"
 require_relative "./lib/ble"
+
 
 require 'pp'
 found_devices = {}
@@ -36,13 +37,18 @@ count = 0
 t0 = Time.now
 max_buffer_size = 60 #seconds
 
-colors = [ :green, :blue, :magenta, :cyan, :light_magenta, :light_cyan, :red, :light_black, :light_red, :light_green, :yellow, :light_blue, :white, :light_white]
+colors = [ :green, :blue, :magenta, :cyan, :red, :yellow, :white]
 color_index = 0
 uniq_objs = {}
 obj_values = []
 current_size = 0
 
 
+
+screen = Doze::Screen.instance
+
+win0 = Doze::Window.new(lines: 10, scroll: false)
+@last_win_pos = nil
 
 def window10s(now, time_hash)
   time_hash.select{|t, data| now-t < 10 }
@@ -57,16 +63,47 @@ def sorted(objs)
   objs.values.sort{|o1, o2| o1[:mac] <=> o2[:mac]}
 end
 
+def new_ble_pane
+  @last_win_pos ||= 11
+  pane = Doze::Window.new(lines: 6, scroll: false, pos: @last_win_pos)
+  @last_win_pos += 6
+  return pane
+end
+
+win0.out "Waiting for scan data"
+
 x = Bgapi.new("/dev/cu.usbmodem1").beacon_scan do |ble_obj|
-  count += 1
+  win0.set_pos([0,0])
+
   data = {}
   now = Time.now
   elapsed_time = now - t0
   average_rate = count / elapsed_time
 
+  win0.out "BDADDR: "
+  win0.out "RSSI: "
+  win0.out "Addr Type: "
+  win0.out "Count:    #{count}"
+  win0.out "Time:     #{elapsed_time.round(2)}"
+  win0.out "Avg Rate: #{average_rate.round(2)}"
+  win0.out "Uniq:     #{uniq_objs.size}"
+
+  count += 1
+
 
   #p ble_obj
+  ble_wins = 0
   if ble_obj.respond_to?(:adv_bytes) #&& ble_obj.packet_type != 0
+    win0.set_pos([0,0])
+
+    win0.out "BDADDR:   #{ble_obj.sender_address}"
+    win0.out "RSSI:     #{ble_obj.rssi}"
+    win0.out "Addr:     #{ble_obj.address_type_lookup}"
+    win0.out "Count:    #{count}"
+    win0.out "Time:     #{elapsed_time.round(2)}"
+    win0.out "Avg Rate: #{average_rate.round(2)}"
+    win0.out "Uniq:     #{uniq_objs.size}"
+    status_pos_end = 10
 
     uniq_id = "#{ble_obj.sender_address} #{ble_obj.adv_hex[0..36]}"
     this_data = uniq_objs[uniq_id] ||= {}
@@ -93,21 +130,16 @@ x = Bgapi.new("/dev/cu.usbmodem1").beacon_scan do |ble_obj|
     this_data[:my_count] ||= 0
     this_data[:my_count] += 1
     this_data[:my_rate] = this_data[:my_count]/elapsed_time
+    this_data[:pane] ||= new_ble_pane
 
-    # set cursor home
-    puts "\33[0;0H"
+    # # set cursor home
+    # puts "\33[0;0H"
+    #
+    # #clear screen
+    # puts "\033[2J"
 
-    #clear screen
-    puts "\033[2J"
 
-    puts "BDADDR:   #{ble_obj.sender_address}"
-    puts "RSSI:     #{ble_obj.rssi}"
-    puts "Addr:     #{ble_obj.address_type_lookup}"
-    puts "Count:    #{count}"
-    puts "Time:     #{elapsed_time.round(2)}"
-    puts "Avg Rate: #{average_rate.round(2)}"
-    puts "Uniq:     #{uniq_objs.size}"
-    lines = 9
+
 
 
     if current_size != uniq_objs.size
@@ -118,21 +150,14 @@ x = Bgapi.new("/dev/cu.usbmodem1").beacon_scan do |ble_obj|
     # puts "\33[9;0H"
     #puts "\033[2J" # clear screen
     obj_values.each do |data|
-      #printf("|%15s|%6d|\n", "Cathy", 15)
 
-      if data[:color] && data[:hex].respond_to?(:red)
-        puts "#{data[:mac]}".__send__(data[:color])
-        puts "  PACKET: #{data[:packet]}".__send__(data[:color])
-        printf("  RATE  10s: %6.2f, window: %6.2f, rate: %6.2f\n".__send__(data[:color]), data[:rate10s], data[:window_rate], data[:my_rate])
-        printf("  COUNT 10s: %3d(%5.2f), window: %4d, my total: %6d, aggr total: %7d\n".__send__(data[:color]), data[:count10s], data[:time10s], data[:data_window].size, data[:my_count], data[:main_count])
-        printf("  RSSI  10s: %6.2f, window: %6.2f\n".__send__(data[:color]), array_average(this10s.values), array_average(this_data[:data_window].values))
-        puts "    #{data[:hex]}".__send__(data[:color])
-        #lines = lines + 5
-      else # no color support
-        puts "#{data[:mac]} #{data[:hex]}"
-      #
-      #   #lines = lines + 1
-      end
+      data[:pane].out("#{data[:mac]}", data[:color])
+      data[:pane].out("  PKT TYPE: #{data[:packet]}", data[:color])
+      data[:pane].out("  RATE  10s: %6.2f, window: %6.2f, rate: %6.2f" %[data[:rate10s], data[:window_rate], data[:my_rate]], data[:color])
+      data[:pane].out("  COUNT 10s: %3d(%5.2f), window: %4d, my total: %6d, aggr total: %7d" % [data[:count10s], data[:time10s], data[:data_window].size, data[:my_count], data[:main_count]], data[:color])
+      data[:pane].out("  RSSI  10s: %6.2f, window: %6.2f" % [array_average(this10s.values), array_average(this_data[:data_window].values)], data[:color])
+      data[:pane].out("    #{data[:hex]}", data[:color])
+      #lines = lines + 5
     end
 
     #parsed_objs = Ble::Parser.new(ble_obj.adv_bytes).fetch
