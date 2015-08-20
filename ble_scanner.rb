@@ -42,8 +42,14 @@ max_buffer_size = 60 #seconds
 uniq_objs = {}
 obj_values = []
 current_size = 0
+mac_filter = nil
 
-
+ARGV.each do |arg|
+  if arg.match /[0-9a-zA-Z]{2}:[0-9a-zA-Z]{2}:[0-9a-zA-Z]{2}:[0-9a-zA-Z]{2}:[0-9a-zA-Z]{2}:[0-9a-zA-Z]{2}/
+    mac_filter = (mac_filter && mac_filter.unshift(arg)) || [arg]
+  end
+end
+mac_filter.uniq!
 
 screen = Doze::Screen.instance
 
@@ -81,12 +87,17 @@ end
 win0.out "Waiting for scan data"
 
 x = Bgapi.new("/dev/cu.usbmodem1").beacon_scan do |ble_obj|
+  if mac_filter
+    next unless ble_obj
+    next unless ble_obj.respond_to? :sender_address
+    next unless mac_filter.include? ble_obj.sender_address
+  end
+
   win0.set_pos([0,0])
 
   data = {}
   now = Time.now
   elapsed_time = now - t0
-  average_rate = count / elapsed_time
 
   # win0.prep "BDADDR: "
   # win0.prep "RSSI: "
@@ -97,12 +108,13 @@ x = Bgapi.new("/dev/cu.usbmodem1").beacon_scan do |ble_obj|
   # win0.prep "Uniq:     #{uniq_objs.size}"
   # win0.refresh
 
-  count += 1
-
 
   #p ble_obj
   ble_wins = 0
   if ble_obj.respond_to?(:adv_bytes) #&& ble_obj.packet_type != 0
+    count += 1
+    average_rate = count / elapsed_time
+
     win0.set_pos([0,0])
 
     win0.prep "BDADDR:   #{ble_obj.sender_address}"
