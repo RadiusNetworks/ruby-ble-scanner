@@ -35,6 +35,7 @@ found_devices = {}
 
 count = 0
 t0 = Time.now
+@shutdown_t0 = Time.now
 max_buffer_size = 60 #seconds
 
 @colors = [ :green, :blue, :magenta, :cyan, :red, :yellow, :white]
@@ -49,7 +50,7 @@ ARGV.each do |arg|
     mac_filter = (mac_filter && mac_filter.unshift(arg)) || [arg]
   end
 end
-mac_filter.uniq!
+mac_filter.uniq! if mac_filter
 
 screen = Doze::Screen.instance
 
@@ -84,9 +85,26 @@ def next_color
   color
 end
 
+# shutdown after an hour of no activity
+def shutdown?
+  Time.now - @shutdown_t0 > 3600
+end
+
+def user_activity
+  @shutdown_t0 = Time.now
+end
+
+def shutdown
+  puts 'Shutdown timer expired, exiting'
+  yield
+  exit(0)
+end
+
 win0.out "Waiting for scan data"
 
 x = Bgapi.new("/dev/cu.usbmodem1").beacon_scan do |ble_obj|
+  shutdown{ puts "Need to shutdown curses gracefully" } if shutdown?
+
   if mac_filter
     next unless ble_obj
     next unless ble_obj.respond_to? :sender_address
@@ -186,6 +204,7 @@ x = Bgapi.new("/dev/cu.usbmodem1").beacon_scan do |ble_obj|
     input = win0.getch
     if input == "r"
       #reset
+      user_activity
       @last_win_pos = 11
       screen.clear
       uniq_objs = {}
