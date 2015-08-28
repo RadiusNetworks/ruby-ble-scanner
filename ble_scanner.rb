@@ -44,6 +44,7 @@ uniq_objs = {}
 obj_values = []
 current_size = 0
 mac_filter = nil
+user_input = nil
 
 ARGV.each do |arg|
   if arg.match /[0-9a-zA-Z]{2}:[0-9a-zA-Z]{2}:[0-9a-zA-Z]{2}:[0-9a-zA-Z]{2}:[0-9a-zA-Z]{2}:[0-9a-zA-Z]{2}/
@@ -194,22 +195,19 @@ x = Bgapi.new("/dev/cu.usbmodem1").beacon_scan do |ble_obj|
       data[:pane].refresh
       #lines = lines + 5
     end
+  end
 
-
-    input = win0.getch
-    if input == "r"
-      #reset
-      user_activity
-      @last_win_pos = 11
-      screen.clear
-      uniq_objs = {}
-      count = 0
-      t0 = Time.now
-      @color_index = 0
-
-      screen.refresh
-
-    end
-
+  # put into separate task
+  user_input = win0.getch
+  if user_input == "r"
+    #reset
+    user_activity
+    @last_win_pos = 11
+    screen.clear
+    uniq_objs = {}
+    count = 0
+    t0 = Time.now
+    @color_index = 0
+    screen.refresh
   end
 end
