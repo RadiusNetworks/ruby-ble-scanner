@@ -84,17 +84,17 @@ module BgapiParser
 
   class Event < Start
 
+    def packet_class
+      @all_bytes[2].ord
+    end
+
+    def packet_command
+      @all_bytes[3].ord
+    end
+
     def next_obj
       #packet_class = interesting_bytes(1).last.ord
       #puts "packet class: #{packet_class}"
-
-      def packet_class
-        @all_bytes[2].ord
-      end
-
-      def packet_command
-        @all_bytes[3].ord
-      end
 
       # resets the bytes of interest to just the event payload
       # rather than including all the header bytes
@@ -136,9 +136,13 @@ module BgapiParser
     def packet_type_lookup
       case packet_type
         when 0
-          "advertisement"
+          "Connectable Adv"
+        when 2
+          "Non-connectable Adv"
         when 4
-          "scan response"
+          "Scan Response"
+        when 6
+          "Discoverable Adv"
         else
          "unknown: #{packet_type}"
       end

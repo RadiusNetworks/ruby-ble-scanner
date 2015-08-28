@@ -146,9 +146,13 @@ x = Bgapi.new("/dev/cu.usbmodem1").beacon_scan do |ble_obj|
 
     uniq_id = "#{ble_obj.sender_address} #{ble_obj.adv_hex[0..36]}"
     this_data = uniq_objs[uniq_id] ||= {}
+    this_data[:all] = BgapiParser.hexdump(ble_obj.all_bytes)
+    this_data[:bg_class] = ble_obj.packet_class
+    this_data[:bg_command] = ble_obj.packet_command
     this_data[:data_window] ||= {}
     this_data[:data_window][now] = ble_obj.rssi
     this_data[:packet] = ble_obj.packet_type_lookup
+    this_data[:address_type] = ble_obj.address_type_lookup
 
     this10s = window10s(now, this_data[:data_window])
 
@@ -171,16 +175,6 @@ x = Bgapi.new("/dev/cu.usbmodem1").beacon_scan do |ble_obj|
     this_data[:my_rate] = this_data[:my_count]/elapsed_time
     this_data[:pane] ||= new_ble_pane
 
-    # # set cursor home
-    # puts "\33[0;0H"
-    #
-    # #clear screen
-    # puts "\033[2J"
-
-
-
-
-
     if current_size != uniq_objs.size
       obj_values = sorted(uniq_objs)
       current_size = uniq_objs.size
@@ -191,11 +185,12 @@ x = Bgapi.new("/dev/cu.usbmodem1").beacon_scan do |ble_obj|
     obj_values.each do |data|
 
       data[:pane].prep("  #{data[:mac]}", data[:color])
-      data[:pane].prep("  PKT TYPE: #{data[:packet]}", data[:color])
+      data[:pane].prep("  PKT TYPE: #{data[:packet]}   #{data[:address_type]}", data[:color])
       data[:pane].prep("  RATE  10s: %6.2f, window: %6.2f, rate: %6.2f" %[data[:rate10s], data[:window_rate], data[:my_rate]], data[:color])
       data[:pane].prep("  COUNT 10s: %3d(%5.2f), window: %4d, my total: %6d, aggr total: %7d" % [data[:count10s], data[:time10s], data[:data_window].size, data[:my_count], data[:main_count]], data[:color])
       data[:pane].prep("  RSSI  10s: %6.2f, window: %6.2f" % [array_average(this10s.values), array_average(this_data[:data_window].values)], data[:color])
       data[:pane].prep("    #{data[:hex]}", data[:color])
+      # data[:pane].prep("    #{data[:bg_class]} #{data[:bg_command]}: #{data[:all]}", data[:color])
       data[:pane].refresh
       #lines = lines + 5
     end
