@@ -145,7 +145,8 @@ x = Bgapi.new("/dev/cu.usbmodem1").beacon_scan do |ble_obj|
     win0.prep "Uniq:     #{uniq_objs.size}"
     win0.refresh
 
-    uniq_id = "#{ble_obj.sender_address} #{ble_obj.adv_hex}"
+    # uniq_id = "#{ble_obj.sender_address} #{ble_obj.adv_hex}"
+    uniq_id = ble_obj.make_scan_id
     this_data = uniq_objs[uniq_id] ||= {}
     this_data[:all] = BgapiParser.hexdump(ble_obj.all_bytes)
     this_data[:bg_class] = ble_obj.packet_class

@@ -18,6 +18,7 @@ module BgapiParser
 
   class Base
     attr_accessor :bytes_of_interest, :unprocessed_bytes, :all_bytes
+    attr_reader :scan_id
 
     def initialize(bytes_of_interest, unprocessed_bytes)
       @bytes_of_interest = bytes_of_interest
@@ -190,6 +191,25 @@ module BgapiParser
     def adv_bytes
       # grabs the last
       event_bytes.last(scan_response_length)
+    end
+
+    # Better to make classes for each BLE packet type
+    # this is a temporary hack
+    def make_scan_id
+      if adv_bytes[0..2] == ["\x02","\x01", "\x06"]
+        return hexdump(adv_bytes[4..-1]) if adv_bytes[4].ord == 0xFF # manufacturer's data
+
+        # It's Eddystone
+        if adv_bytes[3..6].map(&:ord) == [0x03,0x03, 0xAA, 0xFE]
+          if adv_bytes[11].ord != 0x20 # it's not TLM
+            return hexdump(adv_bytes[11..-1])
+          else # it's TLM
+            return 'eddy-tlm'
+          end
+        end
+      else
+        return hexdump(adv_bytes)
+      end
     end
 
     def adv_hex
