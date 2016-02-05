@@ -101,9 +101,14 @@ def shutdown
   exit(0)
 end
 
-win0.out "Waiting for scan data"
 
-x = Bgapi.new("/dev/cu.usbmodem1").beacon_scan do |ble_obj|
+bgapi_port = `bg-port-finder`.strip
+
+bgapi_port = "/dev/cu.usbmodem1" unless bgapi_port.match(/\/dev\/.*usbmodem.*/)
+
+win0.out "Waiting for scan data on port: #{bgapi_port}"
+
+x = Bgapi.new(bgapi_port).beacon_scan do |ble_obj|
   shutdown{ puts "Need to shutdown curses gracefully" } if shutdown?
 
   if mac_filter
