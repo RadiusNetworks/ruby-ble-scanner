@@ -5,6 +5,7 @@ require_relative "bgapi_parser"
 class BgapiError < StandardError; end
 class BgapiError::Timeout < BgapiError; end
 class BgapiError::DeviceNotFound < BgapiError; end
+class BgapiError::PortNotFound < BgapiError; end
 
 
 class Bgapi
@@ -16,6 +17,8 @@ class Bgapi
 
   def initialize(port)
     @port = port
+    # check if port exists
+    raise BgapiError::PortNotFound, "Unable to open #{@port}" unless File.exist?(@port)
     @serial_port_reader = SerialPortReader.new(@port)
     gap_set_scan_parameters(0.040, 0.040, 1)
   end
