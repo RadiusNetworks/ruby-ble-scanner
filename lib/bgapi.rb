@@ -4,6 +4,7 @@ require_relative "bgapi_parser"
 
 class BgapiError < StandardError; end
 class BgapiError::Timeout < BgapiError; end
+class BgapiError::DeviceNotFound < BgapiError; end
 
 
 class Bgapi
@@ -70,7 +71,11 @@ class Bgapi
     cmd = [0,1,6,2, mode]
     resp_len = 80
     resp = send_cmd(cmd, resp_len)
-    serial_port_reader.on_data { |data| yield data }
+    begin
+      serial_port_reader.on_data { |data| yield data }
+    rescue Errno::ENXIO => e
+      raise BgapiError::DeviceNotFound, "Unable to communicate with scanning device\n Original Error: #{e.inspect}"
+    end
   end
 
   def beacon_scan

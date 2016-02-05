@@ -96,7 +96,6 @@ def user_activity
 end
 
 def shutdown
-  puts 'Shutdown timer expired, exiting'
   yield
   exit(0)
 end
@@ -205,15 +204,26 @@ x = Bgapi.new(bgapi_port).beacon_scan do |ble_obj|
 
   # put into separate task
   user_input = win0.getch
-  if user_input == "r"
-    #reset
-    user_activity
-    @last_win_pos = 11
-    screen.clear
-    uniq_objs = {}
-    count = 0
-    t0 = Time.now
-    @color_index = 0
-    screen.refresh
+  case user_input
+    when "r"
+      #reset
+      user_activity
+      @last_win_pos = 11
+      screen.clear
+      uniq_objs = {}
+      count = 0
+      t0 = Time.now
+      @color_index = 0
+      screen.refresh
+
+    when "x"
+      # exit
+      Curses.close_screen
+      shutdown{ puts "Shutting down" }
   end
 end
+
+at_exit {
+  Curses.close_screen
+  shutdown
+}
